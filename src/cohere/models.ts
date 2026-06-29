@@ -174,6 +174,7 @@ export async function fetchCohereModels(
     );
   }
 
-  const payload = (await response.json()) as { models?: CohereApiModel[] };
+  const responseBody = await response.json();
+  const payload = responseBody as { models?: CohereApiModel[] };
   return buildCohereModels(payload.models ?? []);
 }

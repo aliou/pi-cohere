@@ -25,7 +25,8 @@ async function getProviderModels(): Promise<ProviderModelConfig[]> {
   if (!apiKey) return FALLBACK_COHERE_MODELS;
 
   try {
-    return mergeProviderModels(await fetchCohereModels(apiKey));
+    const remoteModels = await fetchCohereModels(apiKey);
+    return mergeProviderModels(remoteModels);
   } catch {
     return FALLBACK_COHERE_MODELS;
   }

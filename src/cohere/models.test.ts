@@ -37,7 +37,8 @@ async function fetchModelsDevCohere(): Promise<ModelsDevProvider> {
     );
   }
 
-  const payload = (await response.json()) as Record<string, ModelsDevProvider>;
+  const responseBody = await response.json();
+  const payload = responseBody as Record<string, ModelsDevProvider>;
   const cohere = payload.cohere;
   if (!cohere) throw new Error("models.dev response does not include cohere");
   return cohere;
