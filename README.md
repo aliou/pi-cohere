@@ -19,6 +19,7 @@ export COHERE_API_KEY=...
 - Registers a `cohere` provider in Pi.
 - Uses Cohere HTTP endpoints directly, not the Cohere SDK.
 - Fetches chat-capable models from `GET https://api.cohere.com/v1/models` when `COHERE_API_KEY` is available.
+- Caches fetched models in Pi's model store and refreshes them through `/model` or `pi update --models`.
 - Falls back to a small hardcoded model list when model fetching is unavailable.
 - Uses Cohere's OpenAI-compatible endpoint at `https://api.cohere.ai/compatibility/v1` with Pi's native `openai-completions` provider path.
 - Supports text, vision model metadata, tool calls, streamed usage, and context-overflow normalization.
