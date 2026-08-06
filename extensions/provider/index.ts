@@ -7,6 +7,10 @@ import {
   FALLBACK_COHERE_MODELS,
   fetchCohereModels,
 } from "../../src";
+import {
+  persistModels,
+  readStoredModels,
+} from "../../src/refresh-store-compat";
 
 const MODEL_CACHE_TTL_MS = 4 * 60 * 60 * 1000;
 const COHERE_BASE_URL = "https://api.cohere.ai/compatibility/v1";
@@ -65,7 +69,7 @@ export default function (pi: ExtensionAPI) {
     api: COHERE_API,
     models: FALLBACK_COHERE_MODELS,
     async refreshModels(context) {
-      const cached = await context.store.read();
+      const cached = await readStoredModels(context);
       if (!context.allowNetwork) {
         return cached
           ? toProviderModels(cached.models)
@@ -89,7 +93,12 @@ export default function (pi: ExtensionAPI) {
       try {
         const remoteModels = await fetchCohereModels(apiKey, context.signal);
         const models = mergeProviderModels(remoteModels);
-        await context.store.write({
+        if (context.signal.aborted) {
+          return cached
+            ? toProviderModels(cached.models)
+            : FALLBACK_COHERE_MODELS;
+        }
+        await persistModels(context, {
           models: toStoredModels(models),
           checkedAt: Date.now(),
         });
