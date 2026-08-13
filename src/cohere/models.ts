@@ -1,5 +1,7 @@
 import type { ProviderModelConfig } from "@earendil-works/pi-coding-agent";
 
+export const COHERE_API_KEY_ENV = "COHERE_API_KEY";
+
 export interface CohereApiModel {
   name: string;
   endpoints?: string[];
