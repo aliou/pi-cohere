@@ -31,7 +31,8 @@
     "!src/**/*.test.ts"
   ],
   "peerDependencies": {
-    "@earendil-works/pi-coding-agent": ">=0.80.8"
+    "@earendil-works/pi-ai": ">=0.84.0",
+    "@earendil-works/pi-coding-agent": ">=0.84.0"
   },
   "devDependencies": {
     "@aliou/biome-plugins": "^0.9.0",
@@ -58,6 +59,9 @@
   },
   "packageManager": "pnpm@10.26.1",
   "peerDependenciesMeta": {
+    "@earendil-works/pi-ai": {
+      "optional": true
+    },
     "@earendil-works/pi-coding-agent": {
       "optional": true
     }
